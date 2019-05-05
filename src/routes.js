@@ -1,8 +1,11 @@
 import { createStackNavigator } from 'react-navigation';
-import Main from './pages/main';
+
+import List from "./pages/home";
+import Novo from "./pages/novo"
 
 export default createStackNavigator({
-    Main
+    List,
+    Novo
 }, {
     navigationOptions: {
         headerStyle:{
