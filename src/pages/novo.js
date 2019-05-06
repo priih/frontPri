@@ -33,7 +33,7 @@ export default class Novo extends Component {
         return (
             <View style={styles.form}>
                 <TextInput
-                    style={styles.inputText}
+                    style={styles.input}
                     placeholder="Título"
                     placeholderTextColor="#999"
                     autoCapitalize="none"
@@ -44,7 +44,7 @@ export default class Novo extends Component {
                 />
 
                 <TextInput
-                    style={styles.inputText}
+                    style={styles.input}
                     placeholder="Descrição"
                     placeholderTextColor="#999"
                     autoCapitalize="none"
@@ -55,8 +55,8 @@ export default class Novo extends Component {
                 />
 
                 <TextInput
-                    style={styles.inputText}
-                    placeholder="Data"
+                    style={styles.input}
+                    placeholder="Data: Hoje, Amanhã, Em Breve..."
                     placeholderTextColor="#999"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingTop: 70
     },
-    inputText: {
+    input: {
         height: 42,
         backgroundColor: "#fff",
-        borderRadius: 5,
+        borderRadius: 20,
         borderWidth: 1,
         borderColor: "#999",
         marginBottom: 30,
@@ -93,20 +93,22 @@ const styles = StyleSheet.create({
     productButton: {
         height: 42,
         borderRadius: 5,
-        backgroundColor: "#5C87A7",
+        backgroundColor: "#008b8b8b",
         justifyContent: "center",
         alignItems: "center",
         marginTop: 15,
-        shadowColor: "#000",
+        shadowColor: "#00ced1",
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.4,
         shadowRadius: 5,
-        elevation: 1
+        elevation: 1,
+        borderRadius: 20, 
+        marginHorizontal: 30
     },
     productButtonText: {
         fontSize: 16,
         color: "#333",
         fontWeight: "bold",
-        color: "#f1f1f1"
+        color: "#000"
     }
 });

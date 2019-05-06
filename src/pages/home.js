@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import api from '../services/api';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IconE from 'react-native-vector-icons/EvilIcons'
 
 import {
     View,
     StyleSheet,
     Text,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 
 export default class Home extends Component {
@@ -36,18 +38,46 @@ export default class Home extends Component {
         console.log(this.state.docs)
     };
 
+
     renderItem = ({ item }) => {
         return (
             <View style={styles.productContainer}>
-                <Text style={styles.productTitle}>{item.title}</Text>
+
+                <Text style={styles.productTitle}><IconE name="paperclip" size={35} color="#000" />{item.title}</Text>
+                <Text style={styles.productDescription}>{item.dateEvent}</Text>
                 <Text style={styles.productDescription}>{item.description}</Text>
 
-                <TouchableOpacity
-                    style={styles.productButton}
-                    onPress={() => {
-                        // (rota de deleção)
-                    }}
-                >
+                <TouchableOpacity onPress= { () => {
+                    Alert.alert(
+                        'Deletar',
+                        'Deseja realmente deletar?',
+                        [
+                            {
+                                text: 'Não', onPress: () => 
+                                    console.log('Cancel'),
+                                    style: 'cancel'
+                                    
+                                },
+                                {
+                                    text: 'Sim', onPress: () => {
+                                        api.delete(`/tarefas/${item._id}`)
+                                        .then(res => {
+                                            this.loadTarefas();
+                                            Alert.alert(
+                                                'Pronto',
+                                                'Item deletado com sucesso'
+                                            )
+                                        })
+                                        .catch(err => {
+                                            'Erro',
+                                            'Não foi pssível deletar'
+                                        })
+                                    }
+                                }
+                            
+                        ]
+                    )
+                }} style={styles.productButton}>
                     <Text style={styles.productButtonText}>Deletar</Text>
                 </TouchableOpacity>
             </View>
@@ -57,6 +87,7 @@ export default class Home extends Component {
     handleNew = () => {
         this.props.navigation.navigate("Novo")
     }
+
 
     render() {
         return (
@@ -73,7 +104,7 @@ export default class Home extends Component {
                         <Text>Novo</Text></TouchableOpacity>
                     <TouchableOpacity>
                         <Icon name="file-text" size={40} color="#000" />
-                        <Text>Editar</Text>
+                        <Text>Listar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -94,8 +125,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 20,
         marginBottom: 20,
-
-        shadowColor: "#000",
+        borderColor: "#00ced1",
+        borderWidth: 1,
+        shadowColor: "#00ced1",
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.4,
         shadowRadius: 5,
@@ -115,15 +147,17 @@ const styles = StyleSheet.create({
     productButton: {
         height: 42,
         borderRadius: 5,
-        backgroundColor: "#ddd",
+        backgroundColor: "#008b8b8b",
         justifyContent: "center",
         alignItems: "center",
         marginTop: 15,
-        shadowColor: "#000",
+        shadowColor: "#00ced1",
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.4,
         shadowRadius: 5,
-        elevation: 1
+        elevation: 1,
+        borderRadius: 20,
+        marginHorizontal: 30
     },
     productButtonText: {
         fontSize: 16,
@@ -135,6 +169,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        alignContent: 'flex-end'
+        alignContent: 'flex-end',
+        backgroundColor: '#008b8b'
     },
 });
